@@ -6,7 +6,11 @@ package tampilan;
 import javax.swing.JOptionPane;
 import user.form_login;
 import database.koneksi;
+import java.awt.Image;
+import java.io.File;
 import java.sql.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -34,6 +38,7 @@ public class tampilan_utama extends javax.swing.JFrame {
         tbl.addColumn("Nama");
         tbl.addColumn("Jenis Kelamin");
         tbl.addColumn("Alamat");
+        tbl.addColumn("Image");
         
         try{
             String sql = "SELECT * FROM tb_form WHERE nim like '%" + tCari.getText()+ "%'";
@@ -46,7 +51,8 @@ public class tampilan_utama extends javax.swing.JFrame {
                     rs.getString("nim"),
                     rs.getString("nama"),
                     rs.getString("jenis_kelamin"),
-                    rs.getString("alamat")
+                    rs.getString("alamat"),
+                    rs.getString("image")
                 });
                 jTable1.setModel(tbl);
             }
@@ -62,6 +68,7 @@ public class tampilan_utama extends javax.swing.JFrame {
         tbl.addColumn("Nama");
         tbl.addColumn("Jenis Kelamin");
         tbl.addColumn("Alamat");
+        tbl.addColumn("Image");
         
         try{
             Statement st = (Statement) koneksi.getkoneksi().createStatement();
@@ -72,13 +79,14 @@ public class tampilan_utama extends javax.swing.JFrame {
                     rs.getString("nim"),
                     rs.getString("nama"),
                     rs.getString("jenis_kelamin"),
-                    rs.getString("alamat")
+                    rs.getString("alamat"),
+                    rs.getString("image")
                 });
                 jTable1.setModel(tbl);
             }
-            JOptionPane.showMessageDialog(null, "Konelsi database berhasil");
+            JOptionPane.showMessageDialog(null, "Koneksi database berhasil");
         
-        }catch(Exception e){
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Koneksi database gagal"+e.getMessage());
         }
     }
@@ -114,6 +122,9 @@ public class tampilan_utama extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         tCari = new javax.swing.JTextField();
         tAlamat = new javax.swing.JTextField();
+        txt_filename = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        lbl_image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,14 +175,19 @@ public class tampilan_utama extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,6 +215,11 @@ public class tampilan_utama extends javax.swing.JFrame {
                 jButton2MouseClicked(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Edit");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,91 +242,109 @@ public class tampilan_utama extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("Upload Foto");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(96, 96, 96)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tName, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tNim, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(16, 16, 16)
-                                    .addComponent(jButton1)))
-                            .addGap(40, 40, 40)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(rLaki)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(rPerempuan))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton2)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5))
                                     .addGap(57, 57, 57)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tName, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(tCari))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jButton3)
-                                            .addGap(39, 39, 39)
-                                            .addComponent(jButton4))))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(tAlamat)
-                                    .addGap(77, 77, 77))))
-                        .addComponent(jScrollPane2)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                            .addComponent(rLaki)
+                                            .addGap(29, 29, 29)
+                                            .addComponent(rPerempuan))
+                                        .addComponent(tNim, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tCari))))
+                            .addGap(14, 14, 14)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_filename, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_image, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tNim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tNim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rLaki)
+                            .addComponent(rPerempuan)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(tAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbl_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(rLaki)
-                    .addComponent(rPerempuan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(txt_filename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addGap(33, 33, 33)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(tCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -316,7 +355,10 @@ public class tampilan_utama extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -343,15 +385,19 @@ public class tampilan_utama extends javax.swing.JFrame {
         }
         
         try{
+            String image = txt_filename.getText();
+            image = image.replace("\\", "\\\\");
+            
             String sql =  "INSERT INTO tb_form VALUES ('" + tNim.getText() +"','"
-                    + tName.getText() + "','" + jk + "','" + tAlamat.getText() + "')";
+                    + tName.getText() + "','" + jk + "','" + tAlamat.getText() + "','" + image + "')";
+            
             Connection con=(Connection) koneksi.getkoneksi();
             PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
             
             JOptionPane.showMessageDialog(null, "Berhasil menyimpan");
         
-        }catch(Exception e){
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Gagal menyimpan"+e.getMessage());
         }
     }//GEN-LAST:event_jButton1MouseClicked
@@ -363,11 +409,12 @@ public class tampilan_utama extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         try{
-            String sql = "SELECT * FROM tb_form WHERE nim ='" + tNim.getText() + ",";
-            Connection con = (Connection) koneksi.getkoneksi();
+            String sql = "SELECT * FROM tb_form WHERE nim ='" + tNim.getText() + "'";
+            Connection con = (Connection)koneksi.getkoneksi();
             PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
-        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Data ditampilkan");
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         table();
@@ -387,11 +434,12 @@ public class tampilan_utama extends javax.swing.JFrame {
         try{
             String sql = "UPDATE tb_form SET nim='"+ tNim.getText() + "',nama='" + tName.getText()
                     + "',jenis_kelamin ='" + jk + "',alamat ='"+ tAlamat.getText() + "'WHERE nim='" + tNim.getText() + "'";
+            
             Connection con = (Connection) koneksi.getkoneksi();
             PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Berhasil Edit Data");
-        }catch(Exception e){
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Gagal Edit Data");
         }
     }//GEN-LAST:event_jButton3MouseClicked
@@ -405,6 +453,8 @@ public class tampilan_utama extends javax.swing.JFrame {
         tName.setText(nama);
         String alamat = jTable1.getValueAt(baris, 3).toString();
         tAlamat.setText(alamat);
+        String image = jTable1.getValueAt(baris, 4).toString();
+        lbl_image.setText(image);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
@@ -415,7 +465,7 @@ public class tampilan_utama extends javax.swing.JFrame {
             PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Success menghapus data");
-        }catch(Exception e){
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Gagal menghapus data");
         }
             
@@ -425,6 +475,28 @@ public class tampilan_utama extends javax.swing.JFrame {
         // TODO add your handling code here:
         cari();
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        txt_filename.setText(filename);
+        Image getAbsolutePath = null;
+        ImageIcon icon = new ImageIcon(filename);
+        Image image = icon.getImage().getScaledInstance(lbl_image.getWidth(), lbl_image.getHeight(), Image.SCALE_SMOOTH);
+        lbl_image.setIcon(icon);
+    }//GEN-LAST:event_jButton6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -467,6 +539,7 @@ public class tampilan_utama extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -477,6 +550,7 @@ public class tampilan_utama extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbl_image;
     private javax.swing.JButton logout;
     private javax.swing.JRadioButton rLaki;
     private javax.swing.JRadioButton rPerempuan;
@@ -484,5 +558,6 @@ public class tampilan_utama extends javax.swing.JFrame {
     private javax.swing.JTextField tCari;
     private javax.swing.JTextField tName;
     private javax.swing.JTextField tNim;
+    private javax.swing.JTextField txt_filename;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,8 @@
 package user;
 import java.sql.*;
 import database.koneksi;
-import tampilan.tampilan_utama;
+//import tampilan.tampilan_utama;
+import tampilan.dashboard;
 import javax.swing.JOptionPane;
 /**
  *
@@ -180,6 +181,7 @@ public class form_login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -198,7 +200,7 @@ public class form_login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Username and Password should not be empety", "Error", JOptionPane.ERROR_MESSAGE);
             }else if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Anda Berhasil Login");
-                tampilan_utama start=new tampilan_utama();
+                dashboard start=new dashboard();
                 start.setVisible(true);
                 this.dispose();
             }else{
